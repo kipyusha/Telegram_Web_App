@@ -81,11 +81,11 @@ function App() {
     const urlParams = new URLSearchParams(window.location.search);
     const clientId = urlParams.get("clientid");
     tg.WebApp.onEvent('backButtonClicked', console.log("Вышел"))
-    console.log(clientId)
     let message = "Товар куплен";
     let url = `https://chatter.salebot.pro/api/9a1e4f7aec6c8f6623b849b493521b1c/message?message=${message}&client_id=${clientId}`;
     tg.MainButton.setText = "Pay :)";
-    // tg.MainButton.show();
+    tg.MainButton.show();
+    console.log(tg.MainButton.show())
     fetch(url)
       .then(function (response) {
         console.log(response);
