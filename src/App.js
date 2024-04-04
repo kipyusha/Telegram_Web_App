@@ -112,23 +112,7 @@ function App() {
     }
   };
   
-  // const onCheckout = () => {
-  //   const urlParams = new URLSearchParams(window.location.search);
-  //   const clientId = urlParams.get("clientid");
-  //   let message = "Товар куплен";
-  //   let url = `https://chatter.salebot.pro/api/9a1e4f7aec6c8f6623b849b493521b1c/message?message=${message}&client_id=${clientId}`;
-  //   fetch(url)
-  //     .then(function (response) {
-  //       console.log(response);
-  //       return response.json();
-  //     })
-  //     .then(function (data) {
-  //       console.log(data);
-  //     })
-  //     .catch(function (err) {
-  //       console.log("Fetch Error :-S", err);
-  //     });
-  // };
+  
   const updateCartItems = (newCartItems) => {
     setCartItems(newCartItems);
   };

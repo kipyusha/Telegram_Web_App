@@ -1,6 +1,5 @@
 import React from "react";
 import "./Cart.css";
-import axios from "axios";
 function Cart({ isOpen, onClose, cartItems, totalPrice, onAdd, onRemove, updateCartItems  }) {
   
   
@@ -35,22 +34,22 @@ function Cart({ isOpen, onClose, cartItems, totalPrice, onAdd, onRemove, updateC
     
   };
 
-  const handlePlay = async () => {
-    try {
-      const data = {
-        // Данные для отправки в Salebot
-        amount: 100,
-        currency: 'USD',
-        // Дополнительные данные, если необходимо
-      };
-
-      // Отправка POST-запроса напрямую к Salebot
-      const response = await axios.post('https://chatter.salebot.pro/api/9a1e4f7aec6c8f6623b849b493521b1c/callback', data);
-
-      console.log('Каллбэк успешно отправлен в Salebot:', response.data);
-    } catch (error) {
-      console.error('Произошла ошибка при отправке каллбэка в Salebot:', error);
-    }
+  const handlePay = () => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const clientId = urlParams.get("clientid");
+    
+    let url = `https://chatter.salebot.pro/api/9a1e4f7aec6c8f6623b849b493521b1c/message?message=${cartItems}&client_id=${clientId}`;
+    fetch(url)
+      .then(function (response) {
+        console.log(response);
+        return response.json();
+      })
+      .then(function (data) {
+        console.log(data);
+      })
+      .catch(function (err) {
+        console.log("Fetch Error :-S", err);
+      });
   };
 
 
@@ -100,7 +99,7 @@ function Cart({ isOpen, onClose, cartItems, totalPrice, onAdd, onRemove, updateC
           <button className="btn_close" onClick={onClose}>
             X
           </button>
-          <button className="btn_pay" onClick={handlePlay}>
+          <button className="btn_pay" onClick={handlePay}>
             Перейти к оплате
           </button>
         
