@@ -33,7 +33,9 @@ function Cart({ isOpen, onClose, cartItems, totalPrice, onAdd, onRemove, updateC
     
   };
   const handlePay = () => {
-    writeToSheet()
+    console.log("корзина")
+    console.log(cartItems)
+    
   }
   return (
     <div  className={`cart ${isOpen ? "open" : ""}`}>
