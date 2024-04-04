@@ -1,7 +1,9 @@
-import React from "react";
+import React, {useState} from "react";
 import "./Cart.css";
+import axios from "axios";
+
 function Cart({ isOpen, onClose, cartItems, totalPrice, onAdd, onRemove, updateCartItems  }) {
-  
+  const [response, setResponse] = useState(null);
   
     
   
@@ -33,24 +35,18 @@ function Cart({ isOpen, onClose, cartItems, totalPrice, onAdd, onRemove, updateC
     updateCartItems(updatedItems)
     
   };
-
-  const handlePay = () => {
-    const urlParams = new URLSearchParams(window.location.search);
-    const clientId = urlParams.get("clientid");
-    
-    let url = `https://chatter.salebot.pro/api/9a1e4f7aec6c8f6623b849b493521b1c/message?message=${cartItems}&client_id=${clientId}`;
-    fetch(url)
-      .then(function (response) {
-        console.log(response);
-        return response.json();
-      })
-      .then(function (data) {
-        console.log(data);
-      })
-      .catch(function (err) {
-        console.log("Fetch Error :-S", err);
+  const token = 'b551e18c8b8e86bea6f14f38de3f5cc3c31ba1edb4d8'
+  const sendData = async () => {
+    try {
+      const response = await axios.post(`https://chatter.salebot.pro/api/${token}/callback`, {
+        data: "Заказ выполнен"
       });
+      setResponse(response.data); // Установка ответа от сервера
+    } catch (error) {
+      console.error('Ошибка при отправке запроса:', error);
+    }
   };
+  
 
 
   return (
@@ -99,7 +95,7 @@ function Cart({ isOpen, onClose, cartItems, totalPrice, onAdd, onRemove, updateC
           <button className="btn_close" onClick={onClose}>
             X
           </button>
-          <button className="btn_pay" onClick={handlePay}>
+          <button className="btn_pay" onClick={sendData}>
             Перейти к оплате
           </button>
         
