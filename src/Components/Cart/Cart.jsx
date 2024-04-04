@@ -35,9 +35,6 @@ function Cart({ isOpen, onClose, cartItems, totalPrice, onAdd, onRemove, updateC
   const handlePay = () => {
     writeToSheet()
   }
-  
-
-
   return (
     <div  className={`cart ${isOpen ? "open" : ""}`}>
       <div className="cart-content">
