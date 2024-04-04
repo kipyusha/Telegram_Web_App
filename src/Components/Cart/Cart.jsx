@@ -1,12 +1,9 @@
 import React, {useState} from "react";
 import "./Cart.css";
-import axios from "axios";
+
+import writeToSheet from "../../bd/sheets_append_values"
 
 function Cart({ isOpen, onClose, cartItems, totalPrice, onAdd, onRemove, updateCartItems  }) {
-  const [response, setResponse] = useState(null);
-  
-    
-  
   const handleIncrement = (item) => {
     const updatedItems = cartItems.map((cartItem) =>
       cartItem.id === item.id
@@ -35,17 +32,9 @@ function Cart({ isOpen, onClose, cartItems, totalPrice, onAdd, onRemove, updateC
     updateCartItems(updatedItems)
     
   };
-  const token = 'b551e18c8b8e86bea6f14f38de3f5cc3c31ba1edb4d8'
-  const sendData = async () => {
-    try {
-      const response = await axios.post(`https://chatter.salebot.pro/api/${token}/callback`, {
-        data: "Заказ выполнен"
-      });
-      setResponse(response.data); // Установка ответа от сервера
-    } catch (error) {
-      console.error('Ошибка при отправке запроса:', error);
-    }
-  };
+  const handlePay = () => {
+    writeToSheet()
+  }
   
 
 
@@ -95,7 +84,7 @@ function Cart({ isOpen, onClose, cartItems, totalPrice, onAdd, onRemove, updateC
           <button className="btn_close" onClick={onClose}>
             X
           </button>
-          <button className="btn_pay" onClick={sendData}>
+          <button className="btn_pay" onClick={handlePay}>
             Перейти к оплате
           </button>
         
