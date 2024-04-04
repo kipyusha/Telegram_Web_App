@@ -1,7 +1,5 @@
-import React, {useState} from "react";
+import React from "react";
 import "./Cart.css";
-
-import writeToSheet from "../../bd/sheets_append_values"
 
 function Cart({ isOpen, onClose, cartItems, totalPrice, onAdd, onRemove, updateCartItems  }) {
   const handleIncrement = (item) => {
