@@ -64,16 +64,10 @@
   justify-content: center;
   align-items: center;
   transition: all 0.3s ease;
-  animation: scaleanimation 1s ease infinite;
   opacity: 0.8;
 }
 
-@keyframes scaleanimation {
-  to {
-    transform: translate(20px, -20px) scale(1.05);
-    opacity: 1;
-  }
-}
+
 
 .card__badge--hidden {
   display: none;

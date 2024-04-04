@@ -23,12 +23,7 @@
   background-color: tomato;
 }
 
-.btn.checkout {
-  background-color: rgb(38, 121, 38);
-  width: 150px;
-  color: #fff;
-  font-size: 14px;
-}
+
 
 .btn:active {
   transform: scale(0.98);

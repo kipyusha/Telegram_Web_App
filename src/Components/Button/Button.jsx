@@ -6,8 +6,7 @@ function Button({ type, title, disable, onClick }) {
     <button
       className={`btn ${
         (type === "add" && "add") ||
-        (type === "remove" && "remove") ||
-        (type === "checkout" && "checkout")
+        (type === "remove" && "remove")
       }`}
       disabled={disable}
       onClick={onClick}
