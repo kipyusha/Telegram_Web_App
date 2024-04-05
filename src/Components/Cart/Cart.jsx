@@ -48,7 +48,7 @@ function Cart({
   const isButtonActive =  cartItems.length > 0;
   
   const handlePay = async () => {
-    tg.close();
+    await tg.close();
     
     const totalSum = cartItems.reduce((acc, item) => {
       return acc + item.price * item.quantity;
