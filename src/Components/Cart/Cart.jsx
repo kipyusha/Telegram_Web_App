@@ -48,7 +48,7 @@ function Cart({
   const isButtonActive =  cartItems.length > 0;
   
   const handlePay = async () => {
-    await tg.close();
+    
     
     const totalSum = cartItems.reduce((acc, item) => {
       return acc + item.price * item.quantity;
@@ -67,6 +67,7 @@ function Cart({
         client_id: client_id,
       },
     });
+    await tg.close();
     await new Promise((resolve) => setTimeout(resolve, 5000));
     await axios({
       method: "post",
