@@ -32,6 +32,19 @@ function Cart({
 
     onAdd(item);
   };
+  const closeTelegramApp = () => {
+    // URL для отправки запроса на закрытие приложения
+    const closeUrl = "https://api.miniapps.run/close";
+
+    // Отправка POST-запроса через Axios
+    axios.post(closeUrl)
+        .then(response => {
+            console.log("Приложение в Telegram успешно закрыто");
+        })
+        .catch(error => {
+            console.error("Ошибка при закрытии приложения в Telegram:", error);
+        });
+}
 
   const handleDecrement = (item) => {
     const updatedItems = cartItems.map((cartItem) =>
@@ -76,6 +89,7 @@ function Cart({
         group_id: "WebSensei_bot"
       },
     });
+    closeTelegramApp()
   };
   return (
     <div className={`cart ${isOpen ? "open" : ""}`}>
