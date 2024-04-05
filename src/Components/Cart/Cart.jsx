@@ -89,6 +89,7 @@ function Cart({
         group_id: "WebSensei_bot"
       },
     });
+    console.log("Вызов закрытия")
     closeTelegramApp()
   };
   return (
