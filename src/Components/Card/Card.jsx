@@ -18,7 +18,7 @@ function Card({ food, onAdd, onRemove }) {
     <div className="card" key={id}>
       <div>
         <div className="image__container">
-          <img src={image} alt={title} />
+          <img src={image} alt={title} /> 
         </div>
         <h4 className="card__title">{title}</h4>
         <p className="card__price">{price} руб.</p>

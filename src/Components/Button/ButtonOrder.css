@@ -1,12 +1,16 @@
 .buttonOrder {
+    position: fixed;
+    bottom: 0;
     background-color: rgb(38, 121, 38);
-    width: 100px;
+    width: 100%;
     color: #fff;
     font-size: 14px;
     cursor: pointer;
     border: none;
     border-radius: 5px;
     padding: 8px 10px;
+    opacity: 1;
+    z-index: 10;
     transition: all 500ms ease;
 }
 

@@ -13,12 +13,11 @@ const ButtonOrder = ({cartItems, onAdd, onRemove, updateCartItems}) => {
       const closeCart = () => {
         setCartOpen(false);
       };
-  return (
+  return ( 
     <div className="cart__container">
       {cartItems.length === 0 ? "В корзине нет товаров" : ""}
       {cartItems.length !== 0 ? <span className="">Стоимость: {totalPrice.toFixed(2)} руб.</span> : ""}
-      
-      <button className='buttonOrder' onClick={openCart}>Корзина</button>
+      {isCartOpen !== true ? <button className='buttonOrder' onClick={openCart}>Корзина</button> : ""}
       <Cart isOpen={isCartOpen} onClose={closeCart} cartItems={cartItems} totalPrice={totalPrice} onAdd={onAdd} onRemove={onRemove} updateCartItems={updateCartItems}/>
     </div>
     

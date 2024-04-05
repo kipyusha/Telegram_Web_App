@@ -147,8 +147,8 @@
   .item_content_text {
     font-size: 14px;
   }
-  .add_item {
-    padding: 2px 6px;
+  .quantity {
+    font-size: 16px;
   }
   .quantity_container {
     gap: 5px;
