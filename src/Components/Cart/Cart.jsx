@@ -1,17 +1,24 @@
 import React from "react";
 import "./Cart.css";
-
-function Cart({ isOpen, onClose, cartItems, totalPrice, onAdd, onRemove, updateCartItems  }) {
+import axios from "axios";
+function Cart({
+  isOpen,
+  onClose,
+  cartItems,
+  totalPrice,
+  onAdd,
+  onRemove,
+  updateCartItems,
+}) {
   const handleIncrement = (item) => {
     const updatedItems = cartItems.map((cartItem) =>
       cartItem.id === item.id
         ? { ...cartItem, quantity: cartItem.quantity + 1 }
         : cartItem
     );
-    updateCartItems(updatedItems)
-    
+    updateCartItems(updatedItems);
+
     onAdd(item);
-    
   };
 
   const handleDecrement = (item) => {
@@ -20,23 +27,46 @@ function Cart({ isOpen, onClose, cartItems, totalPrice, onAdd, onRemove, updateC
         ? { ...cartItem, quantity: cartItem.quantity - 1 }
         : cartItem
     );
-    updateCartItems(updatedItems)
+    updateCartItems(updatedItems);
     onRemove(item);
-    
   };
 
   const handleRemoveItem = (item) => {
-    const updatedItems = cartItems.filter((cartItem) => cartItem.id !== item.id);
-    updateCartItems(updatedItems)
-    
+    const updatedItems = cartItems.filter(
+      (cartItem) => cartItem.id !== item.id
+    );
+    updateCartItems(updatedItems);
   };
-  const handlePay = () => {
-    console.log("корзина")
-    console.log(cartItems)
-    
-  }
+  const handlePay = async () => {
+    const totalSum = cartItems.reduce((acc, item) => {
+      return acc + item.price * item.quantity;
+    }, 0);
+    const resultArray = cartItems.map((item) => {
+      return `${item.title} - ${item.price} руб. ${item.quantity} шт.`;
+    });
+    resultArray.push(`Общая сумма: ${totalSum} руб.`);
+    const data = resultArray.join("\n");
+    await axios({
+      method: "post",
+      url: "https://chatter.salebot.pro/api/9a1e4f7aec6c8f6623b849b493521b1c/message",
+      params: {
+        message: `${data}`,
+        client_id: "354868984",
+      },
+    });
+    await new Promise(resolve => setTimeout(resolve, 5000));
+    await axios({
+      method: "post",
+      url: "https://chatter.salebot.pro/api/9a1e4f7aec6c8f6623b849b493521b1c/tg_callback",
+      params: {
+        message: `Оплата корзины hgfghjklk23`,
+        user_id : "543677918",
+        group_id: "WebSensei_bot"
+      },
+    });
+  };
   return (
-    <div  className={`cart ${isOpen ? "open" : ""}`}>
+    <div className={`cart ${isOpen ? "open" : ""}`}>
       <div className="cart-content">
         {/* Здесь будет содержимое корзины */}
         <h2>Корзина товаров</h2>
@@ -77,14 +107,13 @@ function Cart({ isOpen, onClose, cartItems, totalPrice, onAdd, onRemove, updateC
           </div>
         ))}
         <div className="summa">Сумма заказа: {totalPrice} руб.</div>
-        
-          <button className="btn_close" onClick={onClose}>
-            X
-          </button>
-          <button className="btn_pay" onClick={handlePay}>
-            Перейти к оплате
-          </button>
-        
+
+        <button className="btn_close" onClick={onClose}>
+          X
+        </button>
+        <button className="btn_pay" onClick={handlePay}>
+          Перейти к оплате
+        </button>
       </div>
     </div>
   );
