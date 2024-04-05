@@ -95,11 +95,13 @@ function App() {
         updateCartItems={updateCartItems}
         
       />
+      
       <div className="filter">
         <button onClick={() => handleFilterClick("Все")}>Все</button>
         <button onClick={() => handleFilterClick("Пицца")}>Пицца</button>
         <button onClick={() => handleFilterClick("Бургер")}>Бургер</button>
         <button onClick={() => handleFilterClick("Напитки")}>Напитки</button>
+        
       </div>
       <div className="cards__container">
         {foods

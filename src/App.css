@@ -1,13 +1,18 @@
 body{
   background-color: rgb(19, 19, 52);
   color: #fff;
+  min-width: 300px;
+  
 }
 
 .filter {
   display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  height: max-content;
   justify-content: center;
   gap: 5px;
-  margin-top: 10px;
+  margin: 10px 0 0;
 }
 
 .filter > button {
