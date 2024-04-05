@@ -1,6 +1,8 @@
 import React from "react";
 import "./Cart.css";
 import axios from "axios";
+
+const tg = window.Telegram.WebApp;
 function Cart({
   isOpen,
   onClose,
@@ -32,20 +34,6 @@ function Cart({
 
     onAdd(item);
   };
-  const closeTelegramApp = () => {
-    // URL для отправки запроса на закрытие приложения
-    const closeUrl = "https://api.miniapps.run/close";
-
-    // Отправка POST-запроса через Axios
-    axios.post(closeUrl)
-        .then(response => {
-            console.log("Приложение в Telegram успешно закрыто");
-        })
-        .catch(error => {
-            console.error("Ошибка при закрытии приложения в Telegram:", error);
-        });
-}
-
   const handleDecrement = (item) => {
     const updatedItems = cartItems.map((cartItem) =>
       cartItem.id === item.id && cartItem.quantity > 1
@@ -90,7 +78,7 @@ function Cart({
       },
     });
     console.log("Вызов закрытия")
-    closeTelegramApp()
+    tg.close()
   };
   return (
     <div className={`cart ${isOpen ? "open" : ""}`}>
