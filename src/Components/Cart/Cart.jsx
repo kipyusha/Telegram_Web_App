@@ -10,6 +10,18 @@ function Cart({
   onRemove,
   updateCartItems,
 }) {
+  const currentUrl = window.location.href;
+  const urlParts = currentUrl.split("?");
+  const queryParams = urlParts[1].split("&");
+  const params = {};
+  queryParams.forEach(function (param) {
+    const paramParts = param.split("=");
+    const key = decodeURIComponent(paramParts[0]);
+    const value = decodeURIComponent(paramParts[1]);
+    params[key] = value;
+  });
+  const client_id = params["clientid"];
+  const platform_id = params["user_id"];
   const handleIncrement = (item) => {
     const updatedItems = cartItems.map((cartItem) =>
       cartItem.id === item.id
@@ -51,7 +63,7 @@ function Cart({
       url: "https://chatter.salebot.pro/api/9a1e4f7aec6c8f6623b849b493521b1c/message",
       params: {
         message: `${data}`,
-        client_id: "354868984",
+        client_id: client_id,
       },
     });
     await new Promise(resolve => setTimeout(resolve, 5000));
@@ -60,7 +72,7 @@ function Cart({
       url: "https://chatter.salebot.pro/api/9a1e4f7aec6c8f6623b849b493521b1c/tg_callback",
       params: {
         message: `Оплата корзины hgfghjklk23`,
-        user_id : "543677918",
+        user_id : platform_id,
         group_id: "WebSensei_bot"
       },
     });
