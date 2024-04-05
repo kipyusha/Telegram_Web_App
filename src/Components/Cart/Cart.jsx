@@ -67,8 +67,9 @@ function Cart({
         client_id: client_id,
       },
     });
+    
+    await new Promise((resolve) => setTimeout(resolve, 1000));
     await tg.close();
-    await new Promise((resolve) => setTimeout(resolve, 5000));
     await axios({
       method: "post",
       url: "https://chatter.salebot.pro/api/20f0537f4eb89acd70970e74778f3205/tg_callback",
