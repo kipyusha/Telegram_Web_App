@@ -61,7 +61,7 @@ function Cart({
     const data = resultArray.join("\n");
     await axios({
       method: "post",
-      url: "https://chatter.salebot.pro/api/9a1e4f7aec6c8f6623b849b493521b1c/message",
+      url: "https://chatter.salebot.pro/api/20f0537f4eb89acd70970e74778f3205/message",
       params: {
         message: `${data}`,
         client_id: client_id,
@@ -70,7 +70,7 @@ function Cart({
     await new Promise(resolve => setTimeout(resolve, 5000));
     await axios({
       method: "post",
-      url: "https://chatter.salebot.pro/api/9a1e4f7aec6c8f6623b849b493521b1c/tg_callback",
+      url: "https://chatter.salebot.pro/api/20f0537f4eb89acd70970e74778f3205/tg_callback",
       params: {
         message: `Оплата корзины hgfghjklk23`,
         user_id : platform_id,
