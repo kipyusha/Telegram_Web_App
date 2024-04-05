@@ -22,6 +22,7 @@ function Cart({
     const value = decodeURIComponent(paramParts[1]);
     params[key] = value;
   });
+  
   const client_id = params["clientid"];
   const platform_id = params["user_id"];
   const handleIncrement = (item) => {
@@ -30,6 +31,7 @@ function Cart({
         ? { ...cartItem, quantity: cartItem.quantity + 1 }
         : cartItem
     );
+    console.log(item)
     updateCartItems(updatedItems);
 
     onAdd(item);
@@ -43,14 +45,11 @@ function Cart({
     updateCartItems(updatedItems);
     onRemove(item);
   };
-
-  const handleRemoveItem = (item) => {
-    const updatedItems = cartItems.filter(
-      (cartItem) => cartItem.id !== item.id
-    );
-    updateCartItems(updatedItems);
-  };
+  const isButtonActive =  cartItems.length > 0;
+  
   const handlePay = async () => {
+    tg.close();
+    
     const totalSum = cartItems.reduce((acc, item) => {
       return acc + item.price * item.quantity;
     }, 0);
@@ -59,6 +58,7 @@ function Cart({
     });
     resultArray.push(`Общая сумма: ${totalSum} руб.`);
     const data = resultArray.join("\n");
+    console.log(data)
     await axios({
       method: "post",
       url: "https://chatter.salebot.pro/api/20f0537f4eb89acd70970e74778f3205/message",
@@ -67,18 +67,18 @@ function Cart({
         client_id: client_id,
       },
     });
-    await new Promise(resolve => setTimeout(resolve, 5000));
+    await new Promise((resolve) => setTimeout(resolve, 5000));
     await axios({
       method: "post",
       url: "https://chatter.salebot.pro/api/20f0537f4eb89acd70970e74778f3205/tg_callback",
       params: {
         message: `Оплата корзины hgfghjklk23`,
-        user_id : platform_id,
-        group_id: "WebSensei_bot"
+        user_id: platform_id,
+        group_id: "WebSensei_bot",
       },
     });
-    console.log("Вызов закрытия")
-    tg.close()
+    
+    console.log("Вызов закрытия");
   };
   return (
     <div className={`cart ${isOpen ? "open" : ""}`}>
@@ -90,8 +90,9 @@ function Cart({
             <div className="cart_item_content">
               <img src={item.image} alt={item.title} />
               <div className="item_content_text">
-                <p className="item_title">{item.title}</p>
+                <p className="item_title">{item.title} Цена: {item.price} руб.</p>
                 <div className="item_content_price">
+                  
                   <div className="quantity_container">
                     <p className="quantity">Количество: {item.quantity}</p>
                     <button
@@ -108,15 +109,9 @@ function Cart({
                     </button>
                   </div>
                   <p className="price">
-                    Цена: {item.price * item.quantity} руб.
+                    Сумма: {item.price * item.quantity} руб.
                   </p>
                 </div>
-                <button
-                  className="remove_item"
-                  onClick={() => handleRemoveItem(item)}
-                >
-                  Убрать товар
-                </button>
               </div>
             </div>
           </div>
@@ -126,7 +121,7 @@ function Cart({
         <button className="btn_close" onClick={onClose}>
           X
         </button>
-        <button className="btn_pay" onClick={handlePay}>
+        <button className="btn_pay" onClick={handlePay} disabled={!isButtonActive}>
           Перейти к оплате
         </button>
       </div>

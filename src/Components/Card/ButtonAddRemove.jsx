@@ -1,6 +1,6 @@
 import React from 'react'
 import Button from "../Button/Button";
-
+import "./ButtonAddRemove.css";
 const ButtonAddRemove = ({count, handleDecrement, handleIncrement}) => {
   return (
     <div className="btn-container">

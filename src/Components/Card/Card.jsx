@@ -16,21 +16,22 @@ function Card({ food,onAdd, onRemove}) {
     onRemove(food);
     
   };
-  
+   
   
   return (
     <div className="card" key={id}>
-      <span
-        className={`${count !== 0 ? "card__badge" : "card__badge--hidden"}`}
-      >
-        {count}
-      </span>
+      
       <div className="image__container">
         <img src={image} alt={title} />
       </div>
       <h4 className="card__title">
         {title} <span className="card__price">{price} руб.</span>
       </h4>
+      <span
+        className={`${count !== 0 ? "card__badge" : "card__badge--hidden"}`}
+      >
+        {count}
+      </span>
       <ButtonAddRemove count={count} handleDecrement={handleDecrement} handleIncrement={handleIncrement}/>
       
     </div>
