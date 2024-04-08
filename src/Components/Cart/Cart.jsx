@@ -1,7 +1,7 @@
 import React from "react";
 import "./Cart.css";
 import axios from "axios";
-
+import { v4 as uuidv4 } from 'uuid';
 const tg = window.Telegram.WebApp;
 
 function Cart({
@@ -13,6 +13,7 @@ function Cart({
   onRemove,
   updateCartItems,
 }) {
+  const uniqueId = uuidv4();
   const currentUrl = window.location.href;
   const urlParts = currentUrl.split("?");
   const queryParams = urlParts[1].split("&");
@@ -59,36 +60,54 @@ function Cart({
       return acc + item.price * item.quantity;
     }, 0);
     const resultArray = cartItems.map((item) => {
-      return `${item.title} - ${item.quantity} шт.`;
+      return `${item.title} - ${item.quantity} шт.\n`;
     });
+    const resultString = resultArray.join('');
     const dataApp = {
-      id: client_id + 1,
-      title: resultArray,
+      id: uuidv4(),
+      title: resultString,
       price: totalSum,
-    
+      order_status: "Не оплачен",
+      id_telegram: platform_id
     };
+    
     const formData = new FormData();
     for (const key in dataApp) {
       formData.append(key, dataApp[key]);
     }
-    const webAppURL = process.env.REACT_APP_API_KEY;
 
+    const webAppURL = process.env.REACT_APP_API_KEY;
+    await fetch(
+      "https://chatter.salebot.pro/api/939524cc55ca5af63a34f6179099165f/save_variables",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          client_id: client_id,
+          variables: {
+            shop: dataApp.id,
+          },
+        }),
+        mode: "no-cors",
+      }
+    )
+      .catch((error) => {
+        console.error("Error:", error);
+      });
     await fetch(webAppURL, {
       method: "POST",
-      body: formData, 
-      mode: "no-cors", 
+      body: formData,
+      mode: "no-cors",
     })
-      .then((response) => response)
-      .then((data) => {
-        console.log("Success:", data);
-      })
       .catch((error) => {
         console.error("Error:", error);
       });
 
     await new Promise((resolve) => setTimeout(resolve, 1000));
     await tg.close();
-    
+
     await axios({
       method: "post",
       url: "https://chatter.salebot.pro/api/939524cc55ca5af63a34f6179099165f/callback",
