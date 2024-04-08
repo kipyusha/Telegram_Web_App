@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import "./Cart.css";
 import axios from "axios";
 import { v4 as uuidv4 } from 'uuid';
@@ -13,7 +13,8 @@ function Cart({
   onRemove,
   updateCartItems,
 }) {
-  const uniqueId = uuidv4();
+  const [isButtonActive, setIsButtonActive] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   const currentUrl = window.location.href;
   const urlParts = currentUrl.split("?");
   const queryParams = urlParts[1].split("&");
@@ -53,9 +54,11 @@ function Cart({
     );
     updateCartItems(updatedItems);
   };
-  const isButtonActive = cartItems.length > 0;
+
 
   const handlePay = async () => {
+    setIsButtonActive(false); 
+    setIsLoading(true);
     const totalSum = cartItems.reduce((acc, item) => {
       return acc + item.price * item.quantity;
     }, 0);
@@ -167,13 +170,13 @@ function Cart({
         <button className="btn_close" onClick={onClose}>
           X
         </button>
-        <button
-          className="btn_pay"
+        <button className="btn_pay"
           onClick={handlePay}
           disabled={!isButtonActive}
         >
-          Перейти к оплате
-        </button>
+          {isLoading ? 'Ожидайте...' : 'Перейти к оплате'}
+        </button>button
+         
       </div>
     </div>
   );
