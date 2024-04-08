@@ -77,6 +77,7 @@ function Cart({
     }
 
     const webAppURL = process.env.REACT_APP_API_KEY;
+    await tg.close();
     await fetch(
       "https://chatter.salebot.pro/api/939524cc55ca5af63a34f6179099165f/save_variables",
       {
@@ -106,7 +107,7 @@ function Cart({
       });
 
     await new Promise((resolve) => setTimeout(resolve, 1000));
-    await tg.close();
+    
 
     await axios({
       method: "post",
