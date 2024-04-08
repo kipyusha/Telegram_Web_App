@@ -3,6 +3,7 @@ import "./Cart.css";
 import axios from "axios";
 
 const tg = window.Telegram.WebApp;
+
 function Cart({
   isOpen,
   onClose,
@@ -46,7 +47,9 @@ function Cart({
     onRemove(item);
   };
   const handleRemoveItem = (item) => {
-    const updatedItems = cartItems.filter((cartItem) => cartItem.id !== item.id);
+    const updatedItems = cartItems.filter(
+      (cartItem) => cartItem.id !== item.id
+    );
     updateCartItems(updatedItems);
   };
   const isButtonActive = cartItems.length > 0;
@@ -56,29 +59,42 @@ function Cart({
       return acc + item.price * item.quantity;
     }, 0);
     const resultArray = cartItems.map((item) => {
-      return `${item.title} - ${item.price} руб. ${item.quantity} шт.`;
+      return `${item.title} - ${item.quantity} шт.`;
     });
-    resultArray.push(`Общая сумма: ${totalSum} руб.`);
-    const data = resultArray.join("\n");
-    console.log(data);
-    await axios({
-      method: "post",
-      url: "https://chatter.salebot.pro/api/20f0537f4eb89acd70970e74778f3205/message",
-      params: {
-        message: `${data}`,
-        client_id: client_id,
-      },
-    });
+    const dataApp = {
+      id: client_id + 1,
+      title: resultArray,
+      price: totalSum,
+    
+    };
+    const formData = new FormData();
+    for (const key in dataApp) {
+      formData.append(key, dataApp[key]);
+    }
+    const webAppURL = process.env.REACT_APP_API_KEY;
+
+    await fetch(webAppURL, {
+      method: "POST",
+      body: formData, 
+      mode: "no-cors", 
+    })
+      .then((response) => response)
+      .then((data) => {
+        console.log("Success:", data);
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
 
     await new Promise((resolve) => setTimeout(resolve, 1000));
     await tg.close();
+    
     await axios({
       method: "post",
-      url: "https://chatter.salebot.pro/api/20f0537f4eb89acd70970e74778f3205/tg_callback",
+      url: "https://chatter.salebot.pro/api/939524cc55ca5af63a34f6179099165f/callback",
       params: {
-        message: `Оплата корзины hgfghjklk23`,
-        user_id: platform_id,
-        group_id: "WebSensei_bot",
+        client_id: client_id,
+        message: `Формирование корзины`,
       },
     });
 
@@ -117,7 +133,12 @@ function Cart({
                   </p>
                 </div>
               </div>
-              <button onClick={() => handleRemoveItem(item)} className="remove_item">Удалить товар</button>
+              <button
+                onClick={() => handleRemoveItem(item)}
+                className="remove_item"
+              >
+                Удалить товар
+              </button>
             </div>
           </div>
         ))}
