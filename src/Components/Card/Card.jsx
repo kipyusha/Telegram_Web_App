@@ -3,19 +3,19 @@ import "./Card.css";
 import ButtonAddRemove from "./ButtonAddRemove";
 
 function Card({ food, onAdd, onRemove}) {
-  const [count, setCount] = useState(0);
+  
   const [selectedProduct, setSelectedProduct] = useState(null);
-  const { title, image, price, id, description } = food;
+  const { title, image, price, id, description, count } = food;
   
   
 
   const handleIncrement = () => {
-    setCount(count + 1);
+    
     onAdd(food);
   };
 
   const handleDecrement = () => {
-    setCount(count - 1);
+    
     onRemove(food);
   };
 
@@ -31,7 +31,6 @@ function Card({ food, onAdd, onRemove}) {
       <div
         className="card"
         key={id}
-        
       >
         <div onClick={() => handleOpenProductDetails(food)}>
           <div className="image__container">
@@ -43,10 +42,10 @@ function Card({ food, onAdd, onRemove}) {
         <span
           className={`${count !== 0 ? "card__badge" : "card__badge--hidden"}`}
         >
-          {count}
+          {food.count}
         </span>
         <ButtonAddRemove
-          count={count}
+          count={food.count}
           handleDecrement={handleDecrement}
           handleIncrement={handleIncrement}
           
@@ -70,7 +69,7 @@ function Card({ food, onAdd, onRemove}) {
           </button>
           <div className="product-details-count">
             <ButtonAddRemove
-              count={count}
+              count={food.count}
               handleDecrement={handleDecrement}
               handleIncrement={handleIncrement}
               selectedProduct= {selectedProduct}

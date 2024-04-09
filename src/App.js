@@ -61,7 +61,8 @@ function App() {
             price: item[2],
             category: item[3],
             image: item[4],
-            description: item[5]
+            description: item[5],
+            count: 0
           };
         });
         setFoods(productsData);
@@ -77,12 +78,19 @@ function App() {
   }, []);
 
   const onAdd = (food) => {
+    const updatedFoods = foods.map((item) => {
+      if (item.id === food.id) {
+        return { ...item, count: item.count + 1 }; // Увеличиваем count на 1
+      }
+      return item;
+    });
+    setFoods(updatedFoods);
+    
     const exists = cartItems.some((x) => x.id === food.id);
     if (exists) {
       const updatedCartItems = cartItems.map((x) =>
         x.id === food.id ? { ...x, quantity: x.quantity + 1 } : x
       );
-      
       setCartItems(updatedCartItems);
     } else {
       const updatedCartItems = [...cartItems, { ...food, quantity: 1 }];
@@ -92,6 +100,14 @@ function App() {
   
 
   const onRemove = (food) => {
+    const updatedFoods = foods.map((item) => {
+      if (item.id === food.id && item.count > 0) {
+        return { ...item, count: item.count - 1 }; // Уменьшаем count на 1, если он больше 0
+      }
+      return item;
+    });
+    setFoods(updatedFoods);
+    
     const exist = cartItems.find((x) => x.id === food.id);
     if (exist.quantity === 1) {
       setCartItems(cartItems.filter((x) => x.id !== food.id));
@@ -112,6 +128,7 @@ function App() {
     setSelectedCategory(category);
     
   };
+ 
   return (
     <>
       <h1 className="heading">Order Food</h1>

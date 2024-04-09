@@ -5,7 +5,7 @@ const ButtonOrder = ({cartItems, onAdd, onRemove, updateCartItems}) => {
     
     const [isCartOpen, setCartOpen] = useState(false);
     const totalPrice = cartItems.reduce((a, c) => a + c.price * c.quantity, 0);
-    console.log(cartItems)
+    
     const openCart = () => {
         setCartOpen(true);
       };

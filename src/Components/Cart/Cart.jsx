@@ -1,7 +1,7 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import "./Cart.css";
 import axios from "axios";
-import { v4 as uuidv4 } from 'uuid';
+import { v4 as uuidv4 } from "uuid";
 const tg = window.Telegram.WebApp;
 
 function Cart({
@@ -29,13 +29,12 @@ function Cart({
   const client_id = params["clientid"];
   const platform_id = params["user_id"];
   const handleIncrement = (item) => {
-    console.log("lox", item)
     const updatedItems = cartItems.map((cartItem) =>
       cartItem.id === item.id
         ? { ...cartItem, quantity: cartItem.quantity + 1 }
         : cartItem
     );
-    console.log(item);
+
     updateCartItems(updatedItems);
 
     onAdd(item);
@@ -56,9 +55,8 @@ function Cart({
     updateCartItems(updatedItems);
   };
 
-
   const handlePay = async () => {
-    setIsButtonActive(false); 
+    setIsButtonActive(false);
     setIsLoading(true);
     const totalSum = cartItems.reduce((acc, item) => {
       return acc + item.price * item.quantity;
@@ -66,22 +64,22 @@ function Cart({
     const resultArray = cartItems.map((item) => {
       return `${item.title} - ${item.quantity} шт.\n`;
     });
-    const resultString = resultArray.join('');
+    const resultString = resultArray.join("");
     const dataApp = {
       id: uuidv4(),
       title: resultString,
       price: totalSum,
       order_status: "Не оплачен",
-      id_telegram: platform_id
+      id_telegram: platform_id,
     };
-    
+
     const formData = new FormData();
     for (const key in dataApp) {
       formData.append(key, dataApp[key]);
     }
 
     const webAppURL = process.env.REACT_APP_API_KEY;
-    
+
     await fetch(
       "https://chatter.salebot.pro/api/939524cc55ca5af63a34f6179099165f/save_variables",
       {
@@ -97,18 +95,17 @@ function Cart({
         }),
         mode: "no-cors",
       }
-    )
-      .catch((error) => {
-        console.error("Error:", error);
-      });
+    ).catch((error) => {
+      console.error("Error:", error);
+    });
+
     await fetch(webAppURL, {
       method: "POST",
       body: formData,
       mode: "no-cors",
-    })
-      .catch((error) => {
-        console.error("Error:", error);
-      });
+    }).catch((error) => {
+      console.error("Error:", error);
+    });
 
     await new Promise((resolve) => setTimeout(resolve, 1000));
     await tg.close();
@@ -121,8 +118,6 @@ function Cart({
         message: `Формирование корзины`,
       },
     });
-
-    console.log("Вызов закрытия");
   };
   return (
     <div className={`cart ${isOpen ? "open" : ""}`}>
@@ -167,17 +162,17 @@ function Cart({
           </div>
         ))}
         <div className="summa">Сумма заказа: {totalPrice} руб.</div>
-
         <button className="btn_close" onClick={onClose}>
           X
         </button>
-        <button className="btn_pay"
+        <button
+          className="btn_pay"
           onClick={handlePay}
           disabled={!isButtonActive}
         >
-          {isLoading ? 'Ожидайте...' : 'Перейти к оплате'}
-        </button>button
-         
+          {isLoading ? "Ожидайте..." : "Перейти к оплате"}
+        </button>
+        button
       </div>
     </div>
   );
