@@ -5,6 +5,7 @@ const ButtonOrder = ({cartItems, onAdd, onRemove, updateCartItems}) => {
     
     const [isCartOpen, setCartOpen] = useState(false);
     const totalPrice = cartItems.reduce((a, c) => a + c.price * c.quantity, 0);
+    console.log(cartItems)
     const openCart = () => {
         setCartOpen(true);
       };
@@ -17,7 +18,7 @@ const ButtonOrder = ({cartItems, onAdd, onRemove, updateCartItems}) => {
     <div className="cart__container">
       {cartItems.length === 0 ? "В корзине нет товаров" : ""}
       {cartItems.length !== 0 ? <span className="">Стоимость: {totalPrice.toFixed(2)} руб.</span> : ""}
-      {isCartOpen !== true ? <button className='buttonOrder' onClick={openCart}>Корзина</button> : ""}
+      {isCartOpen !== true ? <button className='buttonOrder' onClick={openCart}>Перейти в корзину</button> : ""}
       <Cart isOpen={isCartOpen} onClose={closeCart} cartItems={cartItems} totalPrice={totalPrice} onAdd={onAdd} onRemove={onRemove} updateCartItems={updateCartItems}/>
     </div>
     

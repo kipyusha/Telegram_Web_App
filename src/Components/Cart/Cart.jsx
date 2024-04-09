@@ -29,6 +29,7 @@ function Cart({
   const client_id = params["clientid"];
   const platform_id = params["user_id"];
   const handleIncrement = (item) => {
+    console.log("lox", item)
     const updatedItems = cartItems.map((cartItem) =>
       cartItem.id === item.id
         ? { ...cartItem, quantity: cartItem.quantity + 1 }
