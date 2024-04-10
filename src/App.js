@@ -7,37 +7,38 @@ const tg = window.Telegram.WebApp;
 tg.expand();
 
 function App() {
-  
   const [foods, setFoods] = useState([]);
-  
+
   const [cartItems, setCartItems] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState("Все");
   const filterRef = useRef(null);
-  
+
   useEffect(() => {
     setCartItems(cartItems);
   }, [cartItems]);
 
   const handleScroll = () => {
-    const filter = filterRef.current; // Получаем элемент фильтра по ссылке
+    const filter = filterRef.current;
 
     if (filter) {
-      const filterOffsetTop = filter.offsetTop; // Получаем отступ фильтра от верха страницы
-      const scrollTop = window.scrollY || document.documentElement.scrollTop; // Получаем текущий скролл страницы
+      const filterOffsetTop = filter.offsetTop;
+      const scrollTop = window.scrollY || document.documentElement.scrollTop;
 
-      // Если скролл страницы больше или равен отступу фильтра от верха страницы, то добавляем CSS класс, иначе убираем
       if (scrollTop >= filterOffsetTop) {
-        filter.classList.add('sticky');
+        filter.classList.add("sticky");
       } else {
-        filter.classList.remove('sticky');
+        filter.classList.remove("sticky");
+      }
+      if (scrollTop === 0) {
+        filter.classList.remove("sticky");
       }
     }
   };
 
   React.useEffect(() => {
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, [])
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   useEffect(() => {
     async function fetchData() {
@@ -62,7 +63,7 @@ function App() {
             category: item[3],
             image: item[4],
             description: item[5],
-            count: 0
+            count: 0,
           };
         });
         setFoods(productsData);
@@ -73,19 +74,18 @@ function App() {
 
     fetchData();
 
-    // Вызываем tg.ready() после загрузки данных
     tg.ready();
   }, []);
 
   const onAdd = (food) => {
     const updatedFoods = foods.map((item) => {
       if (item.id === food.id) {
-        return { ...item, count: item.count + 1 }; // Увеличиваем count на 1
+        return { ...item, count: item.count + 1 };
       }
       return item;
     });
     setFoods(updatedFoods);
-    
+
     const exists = cartItems.some((x) => x.id === food.id);
     if (exists) {
       const updatedCartItems = cartItems.map((x) =>
@@ -97,17 +97,16 @@ function App() {
       setCartItems(updatedCartItems);
     }
   };
-  
 
   const onRemove = (food) => {
     const updatedFoods = foods.map((item) => {
       if (item.id === food.id && item.count > 0) {
-        return { ...item, count: item.count - 1 }; // Уменьшаем count на 1, если он больше 0
+        return { ...item, count: item.count - 1 };
       }
       return item;
     });
     setFoods(updatedFoods);
-    
+
     const exist = cartItems.find((x) => x.id === food.id);
     if (exist.quantity === 1) {
       setCartItems(cartItems.filter((x) => x.id !== food.id));
@@ -126,27 +125,26 @@ function App() {
 
   const handleFilterClick = (category) => {
     setSelectedCategory(category);
-    
   };
- 
+
   return (
-    <>
+    <div className="container">
       <h1 className="heading">Order Food</h1>
-      
-      <ButtonOrder
-        cartItems={cartItems}
-        onAdd={onAdd}
-        onRemove={onRemove}
-        updateCartItems={updateCartItems}
-        
-      />
-       
+
       <div ref={filterRef} className="filter">
-        <button onClick={() => handleFilterClick("Все")}>Все</button>
-        <button onClick={() => handleFilterClick("Пицца")}>Пицца</button>
-        <button onClick={() => handleFilterClick("Бургер")}>Бургер</button>
-        <button onClick={() => handleFilterClick("Напитки")}>Напитки</button>
-        
+        <ButtonOrder
+          cartItems={cartItems}
+          onAdd={onAdd}
+          onRemove={onRemove}
+          updateCartItems={updateCartItems}
+          filterRef={filterRef}
+        />
+        <div className="filter_content">
+          <button onClick={() => handleFilterClick("Все")}>Все</button>
+          <button onClick={() => handleFilterClick("Пицца")}>Пицца</button>
+          <button onClick={() => handleFilterClick("Бургер")}>Бургер</button>
+          <button onClick={() => handleFilterClick("Напитки")}>Напитки</button>
+        </div>
       </div>
       <div className="cards__container">
         {foods
@@ -155,10 +153,16 @@ function App() {
               selectedCategory === "Все" || food.category === selectedCategory
           )
           .map((food) => (
-            <Card food={food} key={food.id} onAdd={onAdd} onRemove={onRemove} cartItems={cartItems}/>
+            <Card
+              food={food}
+              key={food.id}
+              onAdd={onAdd}
+              onRemove={onRemove}
+              cartItems={cartItems}
+            />
           ))}
       </div>
-    </>
+    </div>
   );
 }
 

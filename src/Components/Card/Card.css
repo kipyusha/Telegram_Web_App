@@ -70,17 +70,18 @@
 .card__badge--hidden {
   display: none;
 }
-
+  
 .product-details {
   display: flex;
   flex-direction: column;
   justify-items: flex-start;
+  overflow: hidden;
   position: fixed;
-  top: 50px;
+  top: 0;
   z-index: 20;
   padding: 10px 5px;
-  width: 90%;
-  height: 500px;
+  width: 96%;
+  height: 96vh;
   border-radius: 5px;
   border: 2px solid var(--primary-color);
   background-color: rgb(19, 19, 52);

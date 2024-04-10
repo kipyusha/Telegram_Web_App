@@ -66,11 +66,11 @@ function Cart({
     });
     const resultString = resultArray.join("");
     const dataApp = {
-      id: uuidv4(),
       title: resultString,
-      price: totalSum,
+      summa: totalSum,
       order_status: "Не оплачен",
       id_telegram: platform_id,
+      id: uuidv4(),
     };
 
     const formData = new FormData();
@@ -122,22 +122,32 @@ function Cart({
   return (
     <div className={`cart ${isOpen ? "open" : ""}`}>
       <div className="cart-content">
-        {/* Здесь будет содержимое корзины */}
         <h2>Корзина товаров</h2>
         {cartItems.map((item) => (
           <div key={item.id} className="cart-item">
             <div className="cart_item_content">
-              <img src={item.image} alt={item.title} />
+              <div className="cart_item_remove">
+                <img className="cart_item_img" src={item.image} alt={item.title} />
+                <p className="item_price">{item.price} руб.</p>
+                <button
+                  onClick={() => handleRemoveItem(item)}
+                  className="remove_item"
+                >
+                  Удалить товар
+                </button>
+              </div>
               <div className="item_content_text">
                 <p className="item_title">{item.title}</p>
+                <p className="quantity">Количество:</p>
                 <div className="quantity_container">
-                  <p className="quantity">Количество: {item.quantity}</p>
+                  
                   <button
                     className="add_item"
                     onClick={() => handleDecrement(item)}
                   >
                     -
                   </button>
+                  {item.quantity}
                   <button
                     className="add_item"
                     onClick={() => handleIncrement(item)}
@@ -145,19 +155,13 @@ function Cart({
                     +
                   </button>
                 </div>
-                <p className="item_title">Цена: {item.price} руб.</p>
+                
                 <div className="item_content_price">
                   <p className="price">
                     Сумма: {item.price * item.quantity} руб.
                   </p>
                 </div>
               </div>
-              <button
-                onClick={() => handleRemoveItem(item)}
-                className="remove_item"
-              >
-                Удалить товар
-              </button>
             </div>
           </div>
         ))}

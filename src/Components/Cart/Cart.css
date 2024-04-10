@@ -11,6 +11,7 @@
   border: 1px solid #ccc;
   padding: 20px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding-top: 50px;
   z-index: 1000;
 }
 
@@ -29,6 +30,7 @@
 
 .cart-content h2 {
   color: black;
+  
 }
 
 /* Стили для кнопки закрытия корзины */
@@ -48,12 +50,11 @@
   padding: 10px 10px;
 }
 
-.cart_item_content img {
-  width: 100px;
-}
+
 .item_content_text {
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   text-align: left;
 }
 
@@ -68,6 +69,7 @@
   display: flex;
   gap: 10px;
   margin: 5px 0 0 0;
+  font-size: 18px;
 }
 .item_title {
   margin: 0;
@@ -81,6 +83,8 @@
 .price {
   margin: 10px 0 0 0;
   padding: 0;
+  font-size: 18px;
+  font-weight: 600;
 }
 
 
@@ -88,10 +92,21 @@
   color: black;
 }
 
+.cart_item_img {
+  width: 100px;
+  
+}
+
+.cart_item_remove {
+  display: flex;
+  flex-direction: column;
+}
+.item_price {
+  font-size: 14px;
+  margin: 0;
+  padding: 5px 0;
+}
 .remove_item {
-  position: absolute;
-  bottom: 10%;
-  right: 5%;
   background-color: black;
   color: white;
   cursor: pointer;
@@ -109,8 +124,8 @@
   border-radius: 5px;
 }
 .btn_close {
-  position: absolute;
-  top: 35px;
+  position: fixed;
+  top: 40px;
   right: 30px;
   padding: 10px 20px;
   background-color: #007bff;
@@ -135,16 +150,13 @@
 }
 
 @media (max-width: 380px) {
-  .cart_item_content img {
+  .cart_item_img {
     width: 80px;
     object-fit: contain;
   }
   .remove_item {
-    position: absolute;
     font-size: 10px;
     width: max-content;
-    bottom: 5px;
-    left: 5px;
   }
   .item_content_text {
     font-size: 14px;
