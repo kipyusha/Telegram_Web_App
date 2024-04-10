@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import "./Cart.css";
-import axios from "axios";
 import { v4 as uuidv4 } from "uuid";
 const tg = window.Telegram.WebApp;
 
@@ -80,44 +79,49 @@ function Cart({
 
     const webAppURL = process.env.REACT_APP_API_KEY;
 
-    await fetch(
-      "https://chatter.salebot.pro/api/939524cc55ca5af63a34f6179099165f/save_variables",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          client_id: client_id,
-          variables: {
-            shop: dataApp.id,
-          },
+    try {
+      await Promise.all([
+        fetch(
+          "https://chatter.salebot.pro/api/939524cc55ca5af63a34f6179099165f/save_variables",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              client_id: client_id,
+              variables: {
+                shop: dataApp.id,
+              },
+            }),
+            mode: "no-cors",
+          }
+        ),
+        fetch(webAppURL, {
+          method: "POST",
+          body: formData,
+          mode: "no-cors",
         }),
-        mode: "no-cors",
-      }
-    ).catch((error) => {
+        
+      ]);
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      await fetch(
+        "https://chatter.salebot.pro/api/939524cc55ca5af63a34f6179099165f/callback",
+        {
+          method: "post",
+          body: JSON.stringify({
+            client_id: client_id,
+            message: `Формирование корзины`,
+            mode: "no-cors",
+          }),
+        }
+      );
+      await tg.close();
+    } catch (error) {
       console.error("Error:", error);
-    });
-
-    await fetch(webAppURL, {
-      method: "POST",
-      body: formData,
-      mode: "no-cors",
-    }).catch((error) => {
-      console.error("Error:", error);
-    });
-
-    await new Promise((resolve) => setTimeout(resolve, 1000));
-    await tg.close();
-
-    await axios({
-      method: "post",
-      url: "https://chatter.salebot.pro/api/939524cc55ca5af63a34f6179099165f/callback",
-      params: {
-        client_id: client_id,
-        message: `Формирование корзины`,
-      },
-    });
+    }
+    
+    
   };
   return (
     <div className={`cart ${isOpen ? "open" : ""}`}>
@@ -127,7 +131,11 @@ function Cart({
           <div key={item.id} className="cart-item">
             <div className="cart_item_content">
               <div className="cart_item_remove">
-                <img className="cart_item_img" src={item.image} alt={item.title} />
+                <img
+                  className="cart_item_img"
+                  src={item.image}
+                  alt={item.title}
+                />
                 <p className="item_price">{item.price} руб.</p>
                 <button
                   onClick={() => handleRemoveItem(item)}
@@ -140,7 +148,6 @@ function Cart({
                 <p className="item_title">{item.title}</p>
                 <p className="quantity">Количество:</p>
                 <div className="quantity_container">
-                  
                   <button
                     className="add_item"
                     onClick={() => handleDecrement(item)}
@@ -155,7 +162,7 @@ function Cart({
                     +
                   </button>
                 </div>
-                
+
                 <div className="item_content_price">
                   <p className="price">
                     Сумма: {item.price * item.quantity} руб.
