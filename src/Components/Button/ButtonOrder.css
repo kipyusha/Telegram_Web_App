@@ -8,16 +8,8 @@
     color: #fff;
     font-size: 18px;
     cursor: pointer;
-<<<<<<< HEAD
-<<<<<<< HEAD
     margin: 0 0 4px;
     border: 2px groove rgb(120, 120, 120);
-
-    
->>>>>>> 0a0697581ec37b480a4d6e1bbcb8aad071b1d413
-=======
-    
->>>>>>> 97468114f0353286876c95dbf5bf60f1ac035fbf
     border-radius: 5px;
     opacity: 1;
     z-index: 10;
@@ -36,8 +28,6 @@
     margin: 5px 15px;
     gap: 10px;
   }
-<<<<<<< HEAD
-
 .summa_order {
     font-weight: 600;
     font-size: 18px;
@@ -45,5 +35,4 @@
     border-radius: 5px;
     padding: 5px 10px;
 }
-=======
->>>>>>> 0a0697581ec37b480a4d6e1bbcb8aad071b1d413
+
