@@ -80,36 +80,50 @@ function Cart({
           client_id: client_id,
           variables: {
             shop: dataApp.id,
+            title: dataApp.title,
+            summa: dataApp.summa,
           },
         }),
         mode: "no-cors",
       }
-    )
-    try {
-      await Promise.all([
-        fetch(webAppURL, {
-          method: "POST",
-          body: formData,
+    );
+    await fetch(
+      "https://chatter.salebot.pro/api/939524cc55ca5af63a34f6179099165f/callback",
+      {
+        method: "post",
+        body: JSON.stringify({
+          client_id: client_id,
+          message: `Формирование корзины`,
           mode: "no-cors",
         }),
-        fetch(
-          "https://chatter.salebot.pro/api/939524cc55ca5af63a34f6179099165f/callback",
-          {
-            method: "post",
-            body: JSON.stringify({
-              client_id: client_id,
-              message: `Формирование корзины`,
-              mode: "no-cors",
-            }),
-          }
-        ),
-        
-      ]);
-      
-    } catch (error) {
-      console.error("Error:", error);
-    }
-    await tg.close()
+      }
+    );
+    await tg.close();
+    // try {
+    //   await Promise.all([
+    //     fetch(webAppURL, {
+    //       method: "POST",
+    //       body: formData,
+    //       mode: "no-cors",
+    //     }),
+    //     fetch(
+    //       "https://chatter.salebot.pro/api/939524cc55ca5af63a34f6179099165f/callback",
+    //       {
+    //         method: "post",
+    //         body: JSON.stringify({
+    //           client_id: client_id,
+    //           message: `Формирование корзины`,
+    //           mode: "no-cors",
+    //         }),
+    //       }
+    //     ),
+
+    //   ]);
+
+    // } catch (error) {
+    //   console.error("Error:", error);
+    // }
+    
   };
   return (
     <div className={`cart ${isOpen ? "open" : ""}`}>
