@@ -71,6 +71,7 @@ function Cart({
     const webAppURL = process.env.REACT_APP_API_KEY;
 
     try {
+      await tg.close();
       await Promise.all([
         fetch(webAppURL, {
           method: "POST",
@@ -78,49 +79,37 @@ function Cart({
           mode: "no-cors",
         }),
         fetch(
-          "https://chatter.salebot.pro/api/939524cc55ca5af63a34f6179099165f/save_variables",
+          "https://chatter.salebot.pro/api/939524cc55ca5af63a34f6179099165f/callback",
           {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
+            method: "post",
             body: JSON.stringify({
               client_id: client_id,
-              variables: {
-                shop: dataApp.id,
-              },
+              message: `Формирование корзины`,
+              mode: "no-cors",
             }),
-            mode: "no-cors",
           }
-        ),
+        )
       ]);
+      
     } catch (error) {
       console.error("Error:", error);
     }
-      new Promise((resolve, reject) => {
-        setTimeout(async () => {
-          try {
-            const response = await fetch(
-              "https://chatter.salebot.pro/api/939524cc55ca5af63a34f6179099165f/callback",
-              {
-                method: "post",
-                body: JSON.stringify({
-                  client_id: client_id,
-                  message: `Формирование корзины`,
-                  mode: "no-cors",
-                }),
-              }
-            );
-            resolve(response);
-            await tg.close();
-          } catch (error) {
-            reject(error);
-          }
-        }, 1000); 
-      })
-      
-      
-    
+    await fetch(
+      "https://chatter.salebot.pro/api/939524cc55ca5af63a34f6179099165f/save_variables",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          client_id: client_id,
+          variables: {
+            shop: dataApp.id,
+          },
+        }),
+        mode: "no-cors",
+      }
+    )
   };
   return (
     <div className={`cart ${isOpen ? "open" : ""}`}>
