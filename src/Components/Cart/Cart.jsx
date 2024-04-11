@@ -69,7 +69,22 @@ function Cart({
     }
 
     const webAppURL = process.env.REACT_APP_API_KEY;
-
+    await fetch(
+      "https://chatter.salebot.pro/api/939524cc55ca5af63a34f6179099165f/save_variables",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          client_id: client_id,
+          variables: {
+            shop: dataApp.id,
+          },
+        }),
+        mode: "no-cors",
+      }
+    )
     try {
       await tg.close();
       await Promise.all([
@@ -94,22 +109,6 @@ function Cart({
     } catch (error) {
       console.error("Error:", error);
     }
-    await fetch(
-      "https://chatter.salebot.pro/api/939524cc55ca5af63a34f6179099165f/save_variables",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          client_id: client_id,
-          variables: {
-            shop: dataApp.id,
-          },
-        }),
-        mode: "no-cors",
-      }
-    )
   };
   return (
     <div className={`cart ${isOpen ? "open" : ""}`}>
