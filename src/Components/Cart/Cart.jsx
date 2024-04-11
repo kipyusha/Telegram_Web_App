@@ -17,6 +17,7 @@ function Cart({
   const currentUrl = window.location.href;
   const urlParts = currentUrl.split("?");
   const queryParams = urlParts[1].split("&");
+  console.log(queryParams)
   const params = {};
   queryParams.forEach(function (param) {
     const paramParts = param.split("=");
@@ -26,6 +27,7 @@ function Cart({
   });
 
   const client_id = params["clientid"];
+  console.log(client_id)
   const handleIncrement = (item) => {
     const updatedItems = cartItems.map((cartItem) =>
       cartItem.id === item.id
