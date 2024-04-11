@@ -86,7 +86,7 @@ function Cart({
       }
     )
     try {
-      await tg.close();
+      
       await Promise.all([
         fetch(webAppURL, {
           method: "POST",
@@ -103,7 +103,8 @@ function Cart({
               mode: "no-cors",
             }),
           }
-        )
+        ),
+        tg.close()
       ]);
       
     } catch (error) {
