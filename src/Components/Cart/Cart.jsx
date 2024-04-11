@@ -71,6 +71,7 @@ function Cart({
     const webAppURL = process.env.REACT_APP_API_KEY;
 
     try {
+      await tg.close();
       await Promise.all([
         fetch(
           "https://chatter.salebot.pro/api/939524cc55ca5af63a34f6179099165f/save_variables",
@@ -105,7 +106,7 @@ function Cart({
           }),
         }
       );
-      await tg.close();
+      
     } catch (error) {
       console.error("Error:", error);
     }
