@@ -86,7 +86,6 @@ function Cart({
       }
     )
     try {
-      
       await Promise.all([
         fetch(webAppURL, {
           method: "POST",
@@ -104,12 +103,13 @@ function Cart({
             }),
           }
         ),
-        tg.close()
+        
       ]);
       
     } catch (error) {
       console.error("Error:", error);
     }
+    await tg.close()
   };
   return (
     <div className={`cart ${isOpen ? "open" : ""}`}>
