@@ -73,6 +73,11 @@ function Cart({
     try {
       await tg.close();
       await Promise.all([
+        fetch(webAppURL, {
+          method: "POST",
+          body: formData,
+          mode: "no-cors",
+        }),
         fetch(
           "https://chatter.salebot.pro/api/939524cc55ca5af63a34f6179099165f/save_variables",
           {
@@ -89,23 +94,19 @@ function Cart({
             mode: "no-cors",
           }
         ),
-        fetch(webAppURL, {
-          method: "POST",
-          body: formData,
-          mode: "no-cors",
-        }),
+        fetch(
+          "https://chatter.salebot.pro/api/939524cc55ca5af63a34f6179099165f/callback",
+          {
+            method: "post",
+            body: JSON.stringify({
+              client_id: client_id,
+              message: `Формирование корзины`,
+              mode: "no-cors",
+            }),
+          }
+        )
       ]);
-      await fetch(
-        "https://chatter.salebot.pro/api/939524cc55ca5af63a34f6179099165f/callback",
-        {
-          method: "post",
-          body: JSON.stringify({
-            client_id: client_id,
-            message: `Формирование корзины`,
-            mode: "no-cors",
-          }),
-        }
-      );
+      
       
     } catch (error) {
       console.error("Error:", error);
