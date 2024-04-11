@@ -94,7 +94,7 @@ function Cart({
             mode: "no-cors",
           }
         ),
-        fetch(
+        await fetch(
           "https://chatter.salebot.pro/api/939524cc55ca5af63a34f6179099165f/callback",
           {
             method: "post",
