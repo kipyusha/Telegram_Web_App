@@ -26,7 +26,6 @@ function Cart({
   });
 
   const client_id = params["clientid"];
-  const platform_id = params["user_id"];
   const handleIncrement = (item) => {
     const updatedItems = cartItems.map((cartItem) =>
       cartItem.id === item.id
@@ -68,7 +67,6 @@ function Cart({
       title: resultString,
       summa: totalSum,
       order_status: "Не оплачен",
-      id_telegram: platform_id,
       id: uuidv4(),
     };
 
@@ -104,7 +102,6 @@ function Cart({
         }),
         
       ]);
-      await new Promise(resolve => setTimeout(resolve, 1000));
       await fetch(
         "https://chatter.salebot.pro/api/939524cc55ca5af63a34f6179099165f/callback",
         {
