@@ -94,17 +94,26 @@ function Cart({
             mode: "no-cors",
           }
         ),
-        await fetch(
-          "https://chatter.salebot.pro/api/939524cc55ca5af63a34f6179099165f/callback",
-          {
-            method: "post",
-            body: JSON.stringify({
-              client_id: client_id,
-              message: `Формирование корзины`,
-              mode: "no-cors",
-            }),
-          }
-        )
+        new Promise((resolve, reject) => {
+          setTimeout(async () => {
+            try {
+              const response = await fetch(
+                "https://chatter.salebot.pro/api/939524cc55ca5af63a34f6179099165f/callback",
+                {
+                  method: "post",
+                  body: JSON.stringify({
+                    client_id: client_id,
+                    message: `Формирование корзины`,
+                    mode: "no-cors",
+                  }),
+                }
+              );
+              resolve(response);
+            } catch (error) {
+              reject(error);
+            }
+          }, 1000); 
+        }),
       ]);
       
       
