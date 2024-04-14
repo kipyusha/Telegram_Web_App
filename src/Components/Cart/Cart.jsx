@@ -68,9 +68,8 @@ function Cart({
       formData.append(key, dataApp[key]);
     }
 
-    const webAppURL = process.env.REACT_APP_API_KEY;
     await fetch(
-      "https://chatter.salebot.pro/api/80e0809a3951cf98d830103ba73e5bb6/save_variables",
+      "https://chatter.salebot.pro/api/5fb9c27a22cd175bf2aa46f1e6590d9f/save_variables",
       {
         method: "POST",
         headers: {
@@ -88,7 +87,7 @@ function Cart({
       }
     );
     await fetch(
-      "https://chatter.salebot.pro/api/80e0809a3951cf98d830103ba73e5bb6/callback",
+      "https://chatter.salebot.pro/api/5fb9c27a22cd175bf2aa46f1e6590d9f/callback",
       {
         method: "post",
         body: JSON.stringify({
@@ -99,30 +98,6 @@ function Cart({
       }
     );
     await tg.close();
-    // try {
-    //   await Promise.all([
-    //     fetch(webAppURL, {
-    //       method: "POST",
-    //       body: formData,
-    //       mode: "no-cors",
-    //     }),
-    //     fetch(
-    //       "https://chatter.salebot.pro/api/939524cc55ca5af63a34f6179099165f/callback",
-    //       {
-    //         method: "post",
-    //         body: JSON.stringify({
-    //           client_id: client_id,
-    //           message: `Формирование корзины`,
-    //           mode: "no-cors",
-    //         }),
-    //       }
-    //     ),
-
-    //   ]);
-
-    // } catch (error) {
-    //   console.error("Error:", error);
-    // }
     
   };
   return (
