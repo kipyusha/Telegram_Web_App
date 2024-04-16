@@ -98,11 +98,13 @@ function Cart({
       }
     );
     await tg.close();
-    
   };
   return (
     <div className={`cart ${isOpen ? "open" : ""}`}>
       <div className="cart-content">
+        <button className="btn_close" onClick={onClose}>
+          Возврат в каталог
+        </button>
         <h2>Корзина товаров</h2>
         {cartItems.map((item) => (
           <div key={item.id} className="cart-item">
@@ -150,9 +152,6 @@ function Cart({
           </div>
         ))}
         <div className="summa">Сумма заказа: {totalPrice} руб.</div>
-        <button className="btn_close" onClick={onClose}>
-          Возврат в каталог
-        </button>
         <button
           className="btn_pay"
           onClick={handlePay}
