@@ -41,7 +41,7 @@ body{
 }
 
 .filter_content button:last-child {
-  margin-right: 40px;
+  margin-right: 100px;
 }
 .filter.sticky {
   position: fixed;
