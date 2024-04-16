@@ -43,7 +43,7 @@ function Card({ food, onAdd, onRemove}) {
           className={`${count !== 0 ? "card__badge" : "card__badge--hidden"}`}
         >
           {food.count}
-        </span>
+        </span>  
         <ButtonAddRemove
           count={food.count}
           handleDecrement={handleDecrement}

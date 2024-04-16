@@ -21,6 +21,7 @@
 }
 
 .cart-content {
+  position: relative;
   display: flex;
   flex-direction: column;
   text-align: center;
@@ -30,7 +31,7 @@
 
 .cart-content h2 {
   color: black;
-  margin: 10px 0;
+  margin: 40px 0 10px;
 }
 
 .cart-item {
@@ -56,23 +57,26 @@
 }
 
 .item_content_price {
+  font-size: 16px;
   margin: 0;
   padding: 0;
 }
 
 .quantity_container {
-  width: 100%;
-  height: 26px;
   display: flex;
-  gap: 10px;
-  margin: 5px 0 0 0;
-  font-size: 18px;
+  gap: 5px;
+  width: 100%;
+  height: 30px;
+  margin-top: 5px;
 }
+
 .item_title {
+  font-size: 16px;
   margin: 0;
   padding: 0;
 }
 .quantity {
+  font-size: 16px;
   margin: 0;
   padding: 0;
 }
@@ -114,15 +118,37 @@
 
 
 .add_item {
+  height: max-content;
   cursor: pointer;
   background-color: black;
   color: white;
+  font-size: 16px;
+  font-weight: 600;
   border: none;
-  padding: 5px 10px;
+  padding: 1px 7px 4px;
+  
+  border-radius: 5px;
+}
+
+.add_item_quantity {
+  height: max-content;
+  cursor: pointer;
+  background-color: black;
+  color: white;
+  font-size: 16px;
+  font-weight: 600;
+  border: none;
+  padding: 2px 7px 3px;
+  
   border-radius: 5px;
 }
 .btn_close {
-  width: 96%;
+  position: absolute;
+  top: 0;
+  right: 20px;
+  font-size: 16px;
+  font-weight: 600;
+  width: max-content;
   padding: 10px 20px;
   background-color: #007bff;
   margin: 0 auto;
@@ -139,9 +165,11 @@
 .btn_pay {
   margin: 10px 10px;
   padding: 10px 20px;
-  background-color: #007bff;
+  background-color: rgb(38, 121, 38);
+  border: 2px groove rgb(120, 120, 120);
+  font-size: 16px;
+  font-weight: 600;
   color: white;
-  border: none;
   border-radius: 4px;
   cursor: pointer;
 }
@@ -157,12 +185,5 @@
   }
   .item_content_text {
     font-size: 14px;
-  }
-  .quantity {
-    font-size: 16px;
-  }
-  .quantity_container {
-    gap: 5px;
-    
   }
 }

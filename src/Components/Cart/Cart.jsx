@@ -127,19 +127,19 @@ function Cart({
                 <p className="item_title">{item.title}</p>
                 <p className="quantity">Количество:</p>
                 <div className="quantity_container">
-                  <button
+                  <div
                     className="add_item"
                     onClick={() => handleDecrement(item)}
                   >
                     -
-                  </button>
-                  {item.quantity}
-                  <button
+                  </div>
+                  <div className="add_item_quantity">{item.quantity}</div>
+                  <div
                     className="add_item"
                     onClick={() => handleIncrement(item)}
                   >
                     +
-                  </button>
+                  </div>
                 </div>
 
                 <div className="item_content_price">

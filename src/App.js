@@ -29,7 +29,7 @@ function App() {
       } else {
         filter.classList.remove("sticky");
       }
-      if (scrollTop === 0) {
+      if (scrollTop === 0) {  
         filter.classList.remove("sticky");
       }
     }
@@ -144,6 +144,9 @@ function App() {
           <button onClick={() => handleFilterClick("Пицца")}>Пицца</button>
           <button onClick={() => handleFilterClick("Бургер")}>Бургер</button>
           <button onClick={() => handleFilterClick("Напитки")}>Напитки</button>
+          <button onClick={() => handleFilterClick("Твистеры")}>Твистеры</button>
+          <button onClick={() => handleFilterClick("Десерты")}>Десерты</button>
+          <button onClick={() => handleFilterClick("Салаты")}>Салаты</button>
         </div>
       </div>
       <div className="cards__container">
