@@ -31,7 +31,7 @@
 
 .cart-content h2 {
   color: black;
-  margin: 40px 0 10px;
+  margin: 50px 0 10px;
 }
 
 .cart-item {
@@ -52,6 +52,7 @@
 .item_content_text {
   display: flex;
   flex-direction: column;
+  gap: 10px;
   justify-content: space-between;
   text-align: left;
 }
@@ -67,12 +68,11 @@
   gap: 5px;
   width: 100%;
   height: 30px;
-  margin-top: 5px;
 }
 
 .item_title {
   font-size: 16px;
-  margin: 0;
+  margin: 0;;
   padding: 0;
 }
 .quantity {
@@ -82,7 +82,7 @@
 }
 
 .price {
-  margin: 10px 0 0 0;
+  margin: 0;
   padding: 0;
   font-size: 18px;
   font-weight: 600;
@@ -126,20 +126,17 @@
   font-weight: 600;
   border: none;
   padding: 1px 7px 4px;
-  
   border-radius: 5px;
 }
 
 .add_item_quantity {
   height: max-content;
   cursor: pointer;
-  background-color: black;
-  color: white;
+  color: black;
   font-size: 16px;
   font-weight: 600;
   border: none;
-  padding: 2px 7px 3px;
-  
+  padding: 2px 0 3px;
   border-radius: 5px;
 }
 .btn_close {
@@ -153,14 +150,13 @@
   background-color: #007bff;
   margin: 0 auto;
   color: white;
-  border: none;
+  border: 2px groove rgb(120, 120, 120);
   border-radius: 4px;
   cursor: pointer;
 }
 
 .btn_close:hover {
   background-color: #0056b3;
-  color: red;
 }
 .btn_pay {
   margin: 10px 10px;

@@ -8,11 +8,11 @@
   justify-content: space-between;
   position: relative;
   width: 100px;
-  height: 250px;
+  height: max-content;
+  max-height: 300px;
   border: 2px solid var(--primary-color);
   padding: 0.5rem 0.3rem;
   margin: 20px 10px;
-  position: relative;
   border-radius: 5px;
 }
 
@@ -34,11 +34,12 @@
 .image__container {
   width: 100px;
   height: 100px;
-  margin: 0 auto;
+  margin: 0 auto 10px;
 }
 
 .image__container img {
   width: 100%;
+  
   margin-top: 15px;
   object-fit: cover;
 }
