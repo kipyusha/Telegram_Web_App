@@ -151,7 +151,7 @@ function Cart({
         ))}
         <div className="summa">Сумма заказа: {totalPrice} руб.</div>
         <button className="btn_close" onClick={onClose}>
-          X
+          Возврат в каталог
         </button>
         <button
           className="btn_pay"
