@@ -147,7 +147,7 @@ function App() {
           <button onClick={() => handleFilterClick("Твистеры")}>Твистеры</button>
           <button onClick={() => handleFilterClick("Десерты")}>Десерты</button>
           <button onClick={() => handleFilterClick("Салаты")}>Салаты</button>
-          <button>Конец</button>
+          <button>End</button>
         </div>
       </div>
       <div className="cards__container">
