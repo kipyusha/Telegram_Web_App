@@ -129,7 +129,7 @@ function App() {
 
   return (
     <div className="container">
-      <h1 className="heading">Order Food</h1>
+      <h1 className="heading">Каталог</h1>
 
       <div ref={filterRef} className="filter">
         <ButtonOrder
