@@ -79,12 +79,12 @@ body{
 
 .loader-container {
 	width: 100%;
-	height: 100vh;
+	height: 50vh;
 	display: flex;
 	justify-content: center;
 	align-items: center;
 	position: fixed;
-	background: rgba(0, 0, 0, 0.834);
+	background-color: rgb(19, 19, 52);
 	z-index: 1;
 }
 
