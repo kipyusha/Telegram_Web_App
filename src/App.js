@@ -3,7 +3,7 @@ import "./App.css";
 import axios from "axios";
 import Card from "./Components/Card/Card";
 import ButtonOrder from "./Components/Button/ButtonOrder";
-import { LazyLoadImage } from "react-lazy-load-image-component";
+import ClipLoader from 'react-spinners/ClipLoader';
 import "react-lazy-load-image-component/src/effects/blur.css";
 const tg = window.Telegram.WebApp;
 tg.expand();
@@ -193,7 +193,9 @@ function App() {
       </div>
       <div className="cards__container">
         {isLoading ? (
-          <div>Loading...</div>
+          <div className="loader-container">
+            <ClipLoader color={'#fff'} size={60} />
+          </div>
         ) : (
           foods
             .filter(
