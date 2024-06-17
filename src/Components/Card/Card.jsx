@@ -56,7 +56,7 @@ function Card({ food, onAdd, onRemove}) {
           <img className="product-details-img" src={image} alt={title} />
           <h2 className="product-details-title">{selectedProduct.title}</h2>
           <p className="product-details-price">
-            Цена: {selectedProduct.price} руб.
+            Цена: {selectedProduct.price} руб.  
           </p>
           <p className="product-details-description">
           {description}

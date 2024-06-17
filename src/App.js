@@ -3,12 +3,15 @@ import "./App.css";
 import axios from "axios";
 import Card from "./Components/Card/Card";
 import ButtonOrder from "./Components/Button/ButtonOrder";
+import { LazyLoadImage } from "react-lazy-load-image-component";
+import "react-lazy-load-image-component/src/effects/blur.css";
 const tg = window.Telegram.WebApp;
 tg.expand();
 
 function App() {
   const [foods, setFoods] = useState([]);
-
+  const [isLoading, setIsLoading] = useState(true);
+  const [activeCategory, setActiveCategory] = useState("Все");
   const [cartItems, setCartItems] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState("Все");
   const filterRef = useRef(null);
@@ -29,7 +32,7 @@ function App() {
       } else {
         filter.classList.remove("sticky");
       }
-      if (scrollTop === 0) {  
+      if (scrollTop === 0) {
         filter.classList.remove("sticky");
       }
     }
@@ -67,8 +70,10 @@ function App() {
           };
         });
         setFoods(productsData);
+        setIsLoading(false);
       } catch (error) {
         console.error("Ошибка при получении данных из Google Sheets:", error);
+        setIsLoading(false);
       }
     }
 
@@ -125,6 +130,7 @@ function App() {
 
   const handleFilterClick = (category) => {
     setSelectedCategory(category);
+    setActiveCategory(category);
   };
 
   return (
@@ -140,31 +146,70 @@ function App() {
           filterRef={filterRef}
         />
         <div className="filter_content">
-          <button onClick={() => handleFilterClick("Все")}>Все</button>
-          <button onClick={() => handleFilterClick("Пицца")}>Пицца</button>
-          <button onClick={() => handleFilterClick("Бургер")}>Бургер</button>
-          <button onClick={() => handleFilterClick("Напитки")}>Напитки</button>
-          <button onClick={() => handleFilterClick("Твистеры")}>Твистеры</button>
-          <button onClick={() => handleFilterClick("Десерты")}>Десерты</button>
-          <button onClick={() => handleFilterClick("Салаты")}>Салаты</button>
+          <button
+            onClick={() => handleFilterClick("Все")}
+            className={activeCategory === "Все" ? "active" : ""}
+          >
+            Все
+          </button>
+          <button
+            onClick={() => handleFilterClick("Пицца")}
+            className={activeCategory === "Пицца" ? "active" : ""}
+          >
+            Пицца
+          </button>
+          <button
+            onClick={() => handleFilterClick("Бургер")}
+            className={activeCategory === "Бургер" ? "active" : ""}
+          >
+            Бургер
+          </button>
+          <button
+            onClick={() => handleFilterClick("Напитки")}
+            className={activeCategory === "Напитки" ? "active" : ""}
+          >
+            Напитки
+          </button>
+          <button
+            onClick={() => handleFilterClick("Твистеры")}
+            className={activeCategory === "Твистеры" ? "active" : ""}
+          >
+            Твистеры
+          </button>
+          <button
+            onClick={() => handleFilterClick("Десерты")}
+            className={activeCategory === "Десерты" ? "active" : ""}
+          >
+            Десерты
+          </button>
+          <button
+            onClick={() => handleFilterClick("Салаты")}
+            className={activeCategory === "Салаты" ? "active" : ""}
+          >
+            Салаты
+          </button>
           <button>End</button>
         </div>
       </div>
       <div className="cards__container">
-        {foods
-          .filter(
-            (food) =>
-              selectedCategory === "Все" || food.category === selectedCategory
-          )
-          .map((food) => (
-            <Card
-              food={food}
-              key={food.id}
-              onAdd={onAdd}
-              onRemove={onRemove}
-              cartItems={cartItems}
-            />
-          ))}
+        {isLoading ? (
+          <div>Loading...</div>
+        ) : (
+          foods
+            .filter(
+              (food) =>
+                selectedCategory === "Все" || food.category === selectedCategory
+            )
+            .map((food) => (
+              <Card
+                food={food}
+                key={food.id}
+                onAdd={onAdd}
+                onRemove={onRemove}
+                cartItems={cartItems}
+              />
+            ))
+        )}
       </div>
     </div>
   );

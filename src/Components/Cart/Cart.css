@@ -71,9 +71,10 @@
 }
 
 .item_title {
-  font-size: 16px;
+  font-size: 18px;
   margin: 0;;
   padding: 0;
+  font-weight: 600;
 }
 .quantity {
   font-size: 16px;
@@ -91,6 +92,8 @@
 
 .summa {
   color: black;
+  padding: 5px 0;
+  font-size: 20px;
 }
 
 .cart_item_img {

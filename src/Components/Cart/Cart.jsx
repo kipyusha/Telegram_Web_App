@@ -103,7 +103,7 @@ function Cart({
     <div className={`cart ${isOpen ? "open" : ""}`}>
       <div className="cart-content">
         <button className="btn_close" onClick={onClose}>
-          Возврат в каталог
+        Вернуться в каталог
         </button>
         <h2>Корзина товаров</h2>
         {cartItems.map((item) => (
