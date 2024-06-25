@@ -135,6 +135,16 @@ function App() {
     }
   };
 
+  const deleteItem = (food) => {
+    const updatedFoods = foods.map((item) => {
+      if (item.id === food.id) {
+        return { ...item, count: 0 };
+      }
+      return item;
+    });
+    setFoods(updatedFoods);
+  }
+
   const updateCartItems = (newCartItems) => {
     setCartItems(newCartItems);
   };
@@ -153,6 +163,7 @@ function App() {
           cartItems={cartItems}
           onAdd={onAdd}
           onRemove={onRemove}
+          deleteItem={deleteItem}
           updateCartItems={updateCartItems}
           filterRef={filterRef}
         />

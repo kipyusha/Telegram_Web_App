@@ -11,6 +11,7 @@ function Cart({
   onAdd,
   onRemove,
   updateCartItems,
+  deleteItem,
 }) {
   const [isButtonActive, setIsButtonActive] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
@@ -44,6 +45,8 @@ function Cart({
       (cartItem) => cartItem.id !== item.id
     );
     updateCartItems(updatedItems);
+
+    deleteItem(item);
   };
 
   const handlePay = async () => {
@@ -103,7 +106,7 @@ function Cart({
     <div className={`cart ${isOpen ? "open" : ""}`}>
       <div className="cart-content">
         <button className="btn_close" onClick={onClose}>
-        Вернуться в каталог
+          Вернуться в каталог
         </button>
         <h2>Корзина товаров</h2>
         {cartItems.map((item) => (
