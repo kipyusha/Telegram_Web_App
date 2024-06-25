@@ -69,7 +69,18 @@ function App() {
             count: 0,
           };
         });
-        setFoods(productsData);
+        const storedFoods = JSON.parse(localStorage.getItem('foods')) || [];
+        const newFoods = productsData.filter(
+          (product) => !storedFoods.some((item) => item.id === product.id)
+        );
+
+        if (newFoods.length > 0) {
+          const updatedFoods = [...storedFoods, ...newFoods];
+          localStorage.setItem('foods', JSON.stringify(updatedFoods));
+          setFoods(updatedFoods);
+        } else {
+          setFoods(storedFoods);
+        }
         setIsLoading(false);
       } catch (error) {
         console.error("Ошибка при получении данных из Google Sheets:", error);
