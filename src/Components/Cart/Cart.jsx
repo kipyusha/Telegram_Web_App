@@ -72,7 +72,7 @@ function Cart({
     }
 
     await fetch(
-      "https://chatter.salebot.pro/api/cae59edb1e05620f131e3565ec67325c/save_variables",
+      "https://chatter.salebot.pro/api/41524b3338d298d0ec6e1a50e011fd76/save_variables",
       {
         method: "POST",
         headers: {
@@ -90,7 +90,7 @@ function Cart({
       }
     );
     await fetch(
-      "https://chatter.salebot.pro/api/cae59edb1e05620f131e3565ec67325c/callback",
+      "https://chatter.salebot.pro/api/41524b3338d298d0ec6e1a50e011fd76/callback",
       {
         method: "post",
         body: JSON.stringify({
