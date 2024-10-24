@@ -44,6 +44,7 @@ function App() {
   }, []);
 
   useEffect(() => {
+    localStorage.clear();
     async function fetchData() {
       try {
         const response = await axios.get(
