@@ -51,8 +51,8 @@ function App() {
           "https://sheets.googleapis.com/v4/spreadsheets/{spreadsheetId}/values/{range}",
           {
             params: {
-              key: "AIzaSyDlSmLpJB0VhjfSy-K2-GdWZfPqKy6jtmY",
-              spreadsheetId: "18BjWGD4nM4JtR6i8iw8Ls73w6G1-H3pxiCqY57eHKMI",
+              key: "AIzaSyBAymvAGMmd0OlPfSl0hQ0rS118A1WLG5Y",
+              spreadsheetId: "1ZGBdHkMkGoEo4zD0dgiLoat_JHFqXmK907ueia7YUJo",
               range: "products",
             },
           }
