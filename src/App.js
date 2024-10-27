@@ -52,7 +52,7 @@ function App() {
           {
             params: {
               key: "AIzaSyB2Jj3rT0T52B3AInjPYlBHx6zAijXDAiY",
-              spreadsheetId: "1ZGBdHkMkGoEo4zD0dgiLoat_JHFqXmK907ueia7YUJo",
+              spreadsheetId: "1bTJ9NZXImSxPAzg2BtfrOrGem5reWwyjVlap5_XPEnA",
               range: "products",
             },
           }
